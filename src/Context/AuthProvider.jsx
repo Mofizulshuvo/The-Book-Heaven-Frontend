@@ -4,24 +4,26 @@ import {
   signInWithPopup,
   signOut,
   GoogleAuthProvider,
+  onAuthStateChanged,
 } from "firebase/auth";
 import AuthContext from "./AuthContext";
 import { auth } from "../Firebase/firebase.config";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router";
+import { useEffect, useState } from "react";
 
 const AuthProvider = ({ children }) => {
+
+  const [user,setUser]=useState(auth.currentUser);
+
   const createUserWithEmailAndPasswordFunction = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         console.log("Created a new account !");
         toast.success("Account Created Successfully!");
-        
-        const user = res.user;
+
       })
       .catch((error) => {
-        const errorCode = error.code;
-        // toast(errorCode);
         const errorMessage =
           "Already have an Account with this Email! Try to Log in!";
         toast(errorMessage);
@@ -32,13 +34,14 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
         console.log("Logged in successfully!");
-        const user = res.user;
+        // const user = res.user;
+        setUser(auth.currentUser);
         toast.success("You Logged in Successfully!");
       })
       .catch((error) => {
         const errorCode = error.code;
+        const errorMessage = "Wrong Email/Password. Try Again!";
         toast.error(errorMessage);
-        const errorMessage = "error.message";
       });
   };
 
@@ -46,6 +49,7 @@ const AuthProvider = ({ children }) => {
     return signOut(auth)
       .then(() => {
         toast.success("You Signed Out");
+        setUser(null);
       })
       .catch((error) => {
         const Error = error.message;
@@ -65,7 +69,10 @@ const AuthProvider = ({ children }) => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        setUser(auth.currentUser)
+        toast.success("Google Logged in Successfully!")
         // IdP data available using getAdditionalUserInfo(result)
+    
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -77,11 +84,24 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+     
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe(); 
+  }, []);
+
+ 
   const value = {
     createUserWithEmailAndPasswordFunction,
     signInWithEmailAndPasswordFunction,
     GoogleSignIn,
     SignOutFunction,
+    user,
+    setUser,
+    
   };
 
   return <AuthContext.Provider value={value}> {children}</AuthContext.Provider>;

@@ -41,6 +41,7 @@ const SignUp = () => {
               type="text"
               name="name"
               placeholder="Your Name"
+              required
               className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -61,6 +62,7 @@ const SignUp = () => {
               type="email"
               name="email"
               placeholder="Your Email"
+              required
               className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -71,6 +73,7 @@ const SignUp = () => {
               type="password"
               name="password"
               placeholder="Password"
+              required
               className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
