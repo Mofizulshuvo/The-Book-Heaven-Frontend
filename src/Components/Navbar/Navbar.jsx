@@ -37,12 +37,16 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="flex gap-3">
-        <button className="bg-[#32BDF0] font-semibold px-3 py-1 rounded-[5px] text-[#ffffff] hover:bg-[#059dcf]">
-          Sign Up
-        </button>
-        <button className="bg-[#32BDF0] font-semibold px-3 py-1 rounded-[5px] text-[#ffffff] hover:bg-[#059dcf]">
-          Sign In
-        </button>
+        <NavLink to="/SignUp">
+          <button className="bg-[#32BDF0] font-semibold px-3 py-1 rounded-[5px] text-[#ffffff] hover:bg-[#059dcf]">
+            Sign Up
+          </button>
+        </NavLink>
+        <NavLink to="/LogIn">
+          <button className="bg-[#32BDF0] font-semibold px-3 py-1 rounded-[5px] text-[#ffffff] hover:bg-[#059dcf]">
+            Sign In
+          </button>
+        </NavLink>
       </div>
     </div>
   );
