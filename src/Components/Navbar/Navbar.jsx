@@ -17,13 +17,22 @@ const Navbar = () => {
         <NavLink to="/" className={({ isActive }) => activeHandler(isActive)}>
           Home
         </NavLink>
-        <NavLink to="/AllBooks" className={({ isActive }) => activeHandler(isActive)}>
+        <NavLink
+          to="/AllBooks"
+          className={({ isActive }) => activeHandler(isActive)}
+        >
           All Books
         </NavLink>
-        <NavLink to="/AddBooks" className={({ isActive }) => activeHandler(isActive)}>
+        <NavLink
+          to="/AddBooks"
+          className={({ isActive }) => activeHandler(isActive)}
+        >
           Add Books
         </NavLink>
-        <NavLink to="/MyBooks" className={({ isActive }) => activeHandler(isActive)}>
+        <NavLink
+          to="/MyBooks"
+          className={({ isActive }) => activeHandler(isActive)}
+        >
           My Books
         </NavLink>
       </div>
@@ -32,7 +41,7 @@ const Navbar = () => {
           Sign Up
         </button>
         <button className="bg-[#32BDF0] font-semibold px-3 py-1 rounded-[5px] text-[#ffffff] hover:bg-[#059dcf]">
-          Sign  In
+          Sign In
         </button>
       </div>
     </div>
