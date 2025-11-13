@@ -13,15 +13,13 @@ import { Navigate } from "react-router";
 import { useEffect, useState } from "react";
 
 const AuthProvider = ({ children }) => {
-
-  const [user,setUser]=useState(auth.currentUser);
+  const [user, setUser] = useState(auth.currentUser);
 
   const createUserWithEmailAndPasswordFunction = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         console.log("Created a new account !");
         toast.success("Account Created Successfully!");
-
       })
       .catch((error) => {
         const errorMessage =
@@ -69,10 +67,9 @@ const AuthProvider = ({ children }) => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        setUser(auth.currentUser)
-        toast.success("Google Logged in Successfully!")
+        setUser(auth.currentUser);
+        toast.success("Google Logged in Successfully!");
         // IdP data available using getAdditionalUserInfo(result)
-    
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -86,14 +83,21 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-     
       setUser(currentUser);
     });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, []);
 
- 
+  const [AllBooks, setAllBooks] = useState([]);
+
+  useEffect(() => {
+    const AllBooks = fetch("http://localhost:5000/Book-data")
+      .then((res) => res.json())
+      .then((data) => setAllBooks(data) );
+
+  }, []);
+
   const value = {
     createUserWithEmailAndPasswordFunction,
     signInWithEmailAndPasswordFunction,
@@ -101,7 +105,7 @@ const AuthProvider = ({ children }) => {
     SignOutFunction,
     user,
     setUser,
-    
+    AllBooks,
   };
 
   return <AuthContext.Provider value={value}> {children}</AuthContext.Provider>;

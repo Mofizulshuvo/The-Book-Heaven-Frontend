@@ -9,7 +9,7 @@ const Navbar = () => {
     return isActive ? "text-black" : "text-[#32BDF0]";
   };
   return (
-    <div className="bg-[#ffffffd3] shadow-xl px-10 py-5 flex justify-between items-center">
+    <div className="bg-[#ffffffd3] shadow-xl px-10  flex justify-between items-center">
       <div className="logo text-3xl text-[#32BDF0] font-bold sirin-stencil-regular">
         <h1 className="text-3xl text-[#32BDF0] font-bold sirin-stencil-regular">
           The Book
@@ -42,7 +42,7 @@ const Navbar = () => {
       {user ? (
 
         <div>
-          <img src={user.photoURL} className="w-[40px] rounded-full" alt="" />
+          <img src={user.photoURL} className="w-[40px] h-10 rounded-full" alt="" />
           <h1>{user.displayName}</h1>
           <h2>{user.email}</h2>
           <button onClick={()=>SignOutFunction()} className="">Sign Out</button>

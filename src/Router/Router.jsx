@@ -7,6 +7,7 @@ import MyBooks from "../Pages/My Books/MyBooks";
 import AddBooks from "../Pages/Add Books/AddBooks";
 import SignUp from "../Pages/SignUp/SignUp";
 import Login from "../Pages/LogIn/Login";
+import Book_Details from "../Components/Book_Details/Book_Details";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -18,7 +19,12 @@ export const router = createBrowserRouter([
       },
       {
         path:"/AllBooks",
-        element:<AllBooks/>
+        element:<AllBooks/>,
+        loader:() => fetch('http://localhost:5000/Book-data'),
+      },
+      {
+        path:"/BookDetails/:id",
+        element:<Book_Details></Book_Details>
       },
       { 
         path:"/MyBooks",
