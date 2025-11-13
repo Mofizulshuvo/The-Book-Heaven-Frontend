@@ -26,7 +26,7 @@ const UpdateBook = () => {
   }, [clickedBookId]);
 
 
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,8 +45,7 @@ const UpdateBook = () => {
       .then((data) => {
         if (data.success) {
           alert("Book updated successfully!");
-          navigate("/my-books"); // go back to MyBooks page
-        } else {
+          navigate("/my-books");
           alert("Failed to update book.");
         }
       })
