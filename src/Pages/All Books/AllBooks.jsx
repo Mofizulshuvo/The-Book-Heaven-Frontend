@@ -43,7 +43,7 @@ const AllBooks = () => {
               <td className="py-3 px-5 border-b font-semibold text-center ">{book.title}</td>
               <td className="py-3 px-5 border-b font-semibold text-center">{book.author}</td>
               <td className="py-3 px-5 border-b font-semibold text-center">{book.genre}</td>
-              <td className="py-3 px-5 border-b font-semibold text-center">{book.rating.toFixed(1)}</td>
+              <td className="py-3 px-5 border-b font-semibold text-center">{book.rating}</td>
               <td className="py-3 px-5 border-b font-semibold text-center">
                 <Link  to={`/BookDetails/${book._id}`}>
                   <button className="text-white bg-gray-600 hover:bg-gray-800 hover:text-white w-[120px] px-3 py-2 rounded-xl">

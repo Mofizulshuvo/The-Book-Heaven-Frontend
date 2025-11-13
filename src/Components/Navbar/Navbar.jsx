@@ -4,6 +4,7 @@ import AuthContext from "../../Context/AuthContext";
 
 const Navbar = () => {
   const { user,SignOutFunction } = useContext(AuthContext);
+  console.log(user)
 
   const activeHandler = (isActive) => {
     return isActive ? "text-black" : "text-[#32BDF0]";

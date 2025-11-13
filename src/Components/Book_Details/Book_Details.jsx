@@ -39,7 +39,7 @@ const Book_Details = () => {
               {Array.from({ length: 5 }).map((_, i) => (
                 <FaStar key={i} className={i < rating ? "text-yellow-400" : "text-gray-300"} />
               ))}
-              <span className="ml-2 text-gray-600">{rating.toFixed(1)}</span>
+              <span className="ml-2 text-gray-600">{rating}</span>
             </div>
             <h2 className="text-xl font-semibold text-gray-800 mb-2">Summary</h2>
             <p className="text-gray-700 leading-relaxed">{summary}</p>
