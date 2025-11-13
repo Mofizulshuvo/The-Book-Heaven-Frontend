@@ -3,8 +3,8 @@ import { NavLink } from "react-router";
 import AuthContext from "../../Context/AuthContext";
 
 const Navbar = () => {
-  const { user,SignOutFunction } = useContext(AuthContext);
-  console.log(user)
+  const { user, SignOutFunction } = useContext(AuthContext);
+  console.log(user);
 
   const activeHandler = (isActive) => {
     return isActive ? "text-black" : "text-[#32BDF0]";
@@ -41,12 +41,17 @@ const Navbar = () => {
         </NavLink>
       </div>
       {user ? (
-
         <div>
-          <img src={user.photoURL} className="w-[40px] h-10 rounded-full" alt="" />
+          <img
+            src={user.photoURL}
+            className="w-[40px] h-10 rounded-full"
+            alt=""
+          />
           <h1>{user.displayName}</h1>
           <h2>{user.email}</h2>
-          <button onClick={()=>SignOutFunction()} className="">Sign Out</button>
+          <button onClick={() => SignOutFunction()} className="">
+            Sign Out
+          </button>
         </div>
       ) : (
         <div className="flex gap-3">
