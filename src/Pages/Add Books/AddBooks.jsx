@@ -1,57 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 
 const AddBooks = () => {
   const { user } = useContext(AuthContext);
-
-  // //   const [formData, setFormData] = useState({
-  // //     title: "",
-  // //     author: "",
-  // //     genre: "",
-  // //     rating: "",
-  // //     summary: "",
-  // //     coverImage: "",
-  // //     userEmail: user?.email || "",
-  // //     userName: user?.displayName || "",
-  // //   });
-
-  //   const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setFormData({ ...formData, [name]: value });
-  //   };
-
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       const res = await fetch("http://localhost:5000/Book-data", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(formData),
-  //       });
-
-  //       if (res.ok) {
-  //         toast.success("Book added successfully!");
-  //         setFormData({
-  //           title: "",
-  //           author: "",
-  //           genre: "",
-  //           rating: "",
-  //           summary: "",
-  //           coverImage: "",
-  //           userEmail: user?.email || "",
-  //           userName: user?.displayName || "",
-  //         });
-  //       } else {
-  //         toast.error("Failed to add book.");
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //       toast.error("Error occurred while adding the book.");
-  //     }
-  //   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,105 +19,81 @@ const AddBooks = () => {
       userName: user.displayName,
     };
 
-    fetch('http://localhost:5000/Book-data', {
+    fetch("https://the-book-heaven-server-1.onrender.com/Book-data", {
       method: "POST",
       headers: {
-        "content-Type": "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
-    }).then(res=>res.json()).then(data=>{
-        console.log(data);
-    }).catch(error=>{
-        console.log(error)
+      body: JSON.stringify(formData),
     })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
 
-    console.log(formData);
+    toast.success("Book added successfully!");
+    form.reset();
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New Book</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          //   value={formData.title}
-          //   onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-2"
-          required
-        />
-        <input
-          type="text"
-          name="author"
-          placeholder="Author"
-          //   value={formData.author}
-          //   onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-2"
-          required
-        />
-        <input
-          type="text"
-          name="genre"
-          placeholder="Genre"
-          //   value={formData.genre}
-          //   onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-2"
-          required
-        />
-        <input
-          type="number"
-          name="rating"
-          placeholder="Rating (0-5)"
-          min="0"
-          max="5"
-          step="0.1"
-          //   value={formData.rating}
-          //   onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-2"
-          required
-        />
-        <textarea
-          name="summary"
-          placeholder="Summary"
-          //   value={formData.summary}
-          //   onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-2"
-          rows={4}
-          required
-        />
-        <input
-          type="text"
-          name="coverImage"
-          placeholder="Cover Image URL"
-          //   value={formData.coverImage}
-          //   onChange={handleChange}
-          className="w-full border rounded-lg px-3 py-2"
-          required
-        />
-
-        <input
-          type="email"
-          name="userEmail"
-          //   value={formData.userEmail}
-          readOnly
-          className="w-full border rounded-lg px-3 py-2 bg-gray-100"
-        />
-        <input
-          type="text"
-          name="userName"
-          //   value={formData.userName}
-          readOnly
-          className="w-full border rounded-lg px-3 py-2 bg-gray-100"
-        />
-
-        <button
-          type="submit"
-          className="w-full bg-[#006584] text-white py-2 rounded-lg hover:bg-[#004f65] transition-colors"
-        >
-          Add Book
-        </button>
-      </form>
+    <div className="flex justify-center px-4 sm:px-6 md:px-10 py-10">
+      <div className="w-full max-w-lg sm:max-w-xl md:max-w-2xl bg-white rounded-xl shadow-md p-6 sm:p-8 md:p-10">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 text-gray-800">
+          Add New Book
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            className="w-full border rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg focus:ring-2 focus:ring-blue-300"
+            required
+          />
+          <input
+            type="text"
+            name="author"
+            placeholder="Author"
+            className="w-full border rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg focus:ring-2 focus:ring-blue-300"
+            required
+          />
+          <input
+            type="text"
+            name="genre"
+            placeholder="Genre"
+            className="w-full border rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg focus:ring-2 focus:ring-blue-300"
+            required
+          />
+          <input
+            type="number"
+            name="rating"
+            placeholder="Rating (0-5)"
+            min="0"
+            max="5"
+            step="0.1"
+            className="w-full border rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg focus:ring-2 focus:ring-blue-300"
+            required
+          />
+          <textarea
+            name="summary"
+            placeholder="Summary"
+            rows={4}
+            className="w-full border rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg focus:ring-2 focus:ring-blue-300"
+            required
+          />
+          <input
+            type="text"
+            name="coverImage"
+            placeholder="Cover Image URL"
+            className="w-full border rounded-lg px-3 py-2 text-sm sm:text-base md:text-lg focus:ring-2 focus:ring-blue-300"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-[#006584] hover:bg-[#004f65] text-white py-2 sm:py-3 md:py-4 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-colors"
+          >
+            Add Book
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

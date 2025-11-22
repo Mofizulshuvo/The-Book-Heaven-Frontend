@@ -1,22 +1,48 @@
 import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import AuthContext from "../../Context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const { signInWithEmailAndPasswordFunction, GoogleSignIn } =
-    useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { signInWithEmailAndPasswordFunction, GoogleSignIn } = useContext(AuthContext);
 
-  const HandleLogIn = (e) => {
+  const redirectPath = location.state?.from || "/";
+
+  const HandleLogIn = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
-    signInWithEmailAndPasswordFunction(email, password);
+    const upperCase = /[A-Z]/;
+    const lowerCase = /[a-z]/;
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+
+    if (!upperCase.test(password)) {
+      toast.error("Password must include at least one uppercase letter.");
+      return;
+    }
+
+    if (!lowerCase.test(password)) {
+      toast.error("Password must include at least one lowercase letter.");
+      return;
+    }
+   
+
+    await signInWithEmailAndPasswordFunction(email, password);
+    navigate(redirectPath, { replace: true });
   };
 
-  const HandleGoogleSignin = () => {
-    GoogleSignIn();
+  const HandleGoogleSignin = async () => {
+    await GoogleSignIn();
+    navigate(redirectPath, { replace: true });
   };
 
   return (
@@ -24,12 +50,7 @@ const Login = () => {
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
-        {/* {error && <p className="text-red-500 mb-4">{error}</p>} */}
-
-        <form
-          className="flex flex-col gap-4"
-          onSubmit={HandleLogIn}
-        >
+        <form className="flex flex-col gap-4" onSubmit={HandleLogIn}>
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
@@ -54,21 +75,17 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="w-full bg-[#32BDF0] text-white py-2 rounded hover:bg-[#059dcf] transition"
           >
             Login
           </button>
         </form>
-        <div className="text-sm text-gray-500 flex justify-center items-center gap-3">
-            <h1 >Forget Password? </h1>
-            <h1 className="underline hover:cursor-pointer">CLick Here</h1>
-        </div>
 
         <div className="my-4 text-center text-gray-500">OR</div>
 
         <button
           type="button"
-            onClick={HandleGoogleSignin}
+          onClick={HandleGoogleSignin}
           className="flex items-center justify-center w-full border py-2 rounded hover:bg-gray-100 transition gap-2"
         >
           <FcGoogle className="text-xl" />
