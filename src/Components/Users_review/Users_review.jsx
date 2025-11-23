@@ -24,7 +24,7 @@ const Users_review = () => {
     return <p className="text-center mt-10 text-lg">No reviews yet</p>;
 
   return (
-    <section className="w-full py-10 px-4 sm:px-6 md:px-10">
+    <section className="w-full py-10 px-4 sm:px-6 md:px-10 ">
       <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
         User Reviews
       </h2>

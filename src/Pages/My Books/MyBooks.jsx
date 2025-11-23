@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Context/AuthContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const MyBooks = () => {
   const { user } = useContext(AuthContext);
@@ -63,6 +64,9 @@ const MyBooks = () => {
 
   return (
     <div className="p-4 sm:p-6 md:p-10">
+      <Helmet>
+        <title>The Book Heaven | My Books </title>
+      </Helmet> 
       <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
         Books You Added
       </h2>

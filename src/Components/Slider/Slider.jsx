@@ -70,9 +70,11 @@ const Slider = () => {
                   </button>
                 </Link>
               ) : (
-                <p className="text-red-400 font-semibold text-sm sm:text-base md:text-lg">
-                  Log in to add a book
-                </p>
+                <Link to="/LogIn">
+                  <button className="px-5 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-white text-black rounded-full font-semibold shadow-lg hover:bg-gray-200 transition text-sm sm:text-base md:text-lg">
+                    Add Now
+                  </button>
+                </Link>
               )}
             </div>
           </div>

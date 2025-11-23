@@ -5,10 +5,14 @@ import AboutSection from "../../Components/AboutSection.jsx";
 import Users_review from "../../Components/Users_review/Users_review.jsx";
 import Cover from "../../Components/Cover/COver.jsx";
 import UsersReviewForm from "../../Components/UsersReview/UsersReviewForm.jsx";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>The Book Heaven | Home</title>
+      </Helmet>
       <Slider />
       <LatestBooks></LatestBooks>
       <AboutSection></AboutSection>

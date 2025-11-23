@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import AuthContext from "../../Context/AuthContext";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const AddBooks = () => {
   const { user } = useContext(AuthContext);
@@ -36,6 +37,9 @@ const AddBooks = () => {
 
   return (
     <div className="flex justify-center px-4 sm:px-6 md:px-10 py-10">
+      <Helmet>
+        <title>The Book Heaven | Add Books</title>
+      </Helmet> 
       <div className="w-full max-w-lg sm:max-w-xl md:max-w-2xl bg-white rounded-xl shadow-md p-6 sm:p-8 md:p-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 text-gray-800">
           Add New Book

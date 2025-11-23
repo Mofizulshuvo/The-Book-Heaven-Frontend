@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link, useLoaderData } from "react-router";
 
 const AllBooks = () => {
@@ -7,10 +8,13 @@ const AllBooks = () => {
 
   return (
     <div className="p-4 sm:p-6 md:p-10">
-      {/* Table for medium+ screens */}
+      <Helmet>
+        <title>The Book Heaven | All Books</title>
+      </Helmet> 
+      
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full bg-white border border-gray-200 rounded-lg shadow-md">
-          <thead className="bg-gray-100">
+          <thead className="bg-[#32BDF0] text-white ">
             <tr>
               <th className="py-3 px-5 text-gray-700 font-semibold border-b text-center">
                 Cover
@@ -67,7 +71,7 @@ const AllBooks = () => {
         </table>
       </div>
 
-      {/* Card layout for small screens */}
+     
       <div className="md:hidden flex flex-col gap-6">
         {Book_data.map((book) => (
           <div

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import AuthContext from "../../Context/AuthContext";
+import { Link } from "react-router";
 
 const UsersReviewForm = () => {
   const { user, loading } = useContext(AuthContext);
@@ -100,9 +101,11 @@ const UsersReviewForm = () => {
             Submit Feedback
           </button>
         ) : (
-          <p className="text-center text-red-500 font-semibold">
-            You must log in to submit feedback.
-          </p>
+          <Link to="/LogIn">
+            <div className="w-full bg-black text-white py-3 rounded-md font-semibold hover:bg-gray-800 transition text-center cursor-pointer">
+              Submit Feedback
+            </div>
+          </Link>
         )}
       </form>
     </div>
