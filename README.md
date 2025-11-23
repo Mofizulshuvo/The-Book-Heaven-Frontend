@@ -1,16 +1,70 @@
-# React + Vite
+📚 The Book Heaven
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and user-friendly book management app where users can add, update, view, and delete their own books. The project includes authentication, protected routes, and a clean UI built with React and Tailwind.
 
-Currently, two official plugins are available:
+([Live-Link](https://splendorous-marigold-bf0e36.netlify.app/))
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Features
+🔐 Authentication
 
-## React Compiler
+Firebase login system
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+AuthContext for managing user state
 
-## Expanding the ESLint configuration
+Protected routes with React Router
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📘 My Books Page
+
+Fetches books added by the logged-in user
+
+Responsive table layout with cover, title, author, genre, and rating
+
+Update and Delete options
+
+Delete confirmation using React-Toastify
+
+Smooth loader while fetching data
+
+🌍 Backend
+
+Node.js + Express server
+
+MongoDB database
+
+Hosted on Render
+
+Endpoints used:
+
+GET /my-books/:email
+
+DELETE /Book-data/:id
+
+🧰 Tech Stack
+
+Frontend: React, Tailwind CSS, React Router, Firebase, Toastify, React Helmet
+Backend: Node.js, Express, MongoDB
+Hosting: Netlify (frontend), Render (backend)
+
+📂 Key Functionality Flow
+
+User logs in → Auth stored in context
+
+App fetches books using user email
+
+Loader displays while fetching
+
+Books appear in a responsive table
+
+Delete uses confirmation toast
+
+Update opens book edit page
+
+📌 Future Improvements
+
+Search and filter
+
+Pagination
+
+User profile
+
+Dark mode
