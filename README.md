@@ -61,10 +61,7 @@ Update opens book edit page
 
 📌 Future Improvements
 
-Search and filter
-
 Pagination
 
 User profile
 
-Dark mode
