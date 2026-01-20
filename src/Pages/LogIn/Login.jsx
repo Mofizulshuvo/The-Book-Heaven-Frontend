@@ -3,6 +3,9 @@ import { FcGoogle } from "react-icons/fc";
 import AuthContext from "../../Context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import Button from "../../Components/ui/Button";
+import Input from "../../Components/ui/Input";
+import Card from "../../Components/ui/Card";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,62 +38,91 @@ const Login = () => {
       return;
     }
    
-
-    await signInWithEmailAndPasswordFunction(email, password);
-    navigate(redirectPath, { replace: true });
+    const success = await signInWithEmailAndPasswordFunction(email, password);
+    if (success) {
+      navigate(redirectPath, { replace: true });
+    }
   };
 
   const HandleGoogleSignin = async () => {
-    await GoogleSignIn();
-    navigate(redirectPath, { replace: true });
+    const success = await GoogleSignIn();
+    if (success) {
+      navigate(redirectPath, { replace: true });
+    }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Sign in to your account
+          </h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Welcome back! Please enter your details.
+          </p>
+        </div>
 
-        <form className="flex flex-col gap-4" onSubmit={HandleLogIn}>
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
+        <Card className="p-8">
+          <form className="space-y-6" onSubmit={HandleLogIn}>
+            <Input
+              label="Email address"
               type="email"
               name="email"
-              placeholder="Your Email"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your email"
+              fullWidth
               required
             />
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
+            <Input
+              label="Password"
               type="password"
               name="password"
-              placeholder="Password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your password"
+              fullWidth
               required
             />
+
+            <Button type="submit" variant="primary" fullWidth size="lg">
+              Sign in
+            </Button>
+          </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300 dark:border-gray-600" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">Or continue with</span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <Button
+                type="button"
+                variant="outline"
+                fullWidth
+                onClick={HandleGoogleSignin}
+                icon={<FcGoogle className="w-5 h-5" />}
+              >
+                Continue with Google
+              </Button>
+            </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-[#32BDF0] text-white py-2 rounded hover:bg-[#059dcf] transition"
-          >
-            Login
-          </button>
-        </form>
-
-        <div className="my-4 text-center text-gray-500">OR</div>
-
-        <button
-          type="button"
-          onClick={HandleGoogleSignin}
-          className="flex items-center justify-center w-full border py-2 rounded hover:bg-gray-100 transition gap-2"
-        >
-          <FcGoogle className="text-xl" />
-          Continue with Google
-        </button>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Don't have an account?{' '}
+              <button
+                onClick={() => navigate('/SignUp')}
+                className="font-medium text-sky-600 hover:text-sky-500"
+              >
+                Sign up
+              </button>
+            </p>
+          </div>
+        </Card>
       </div>
     </div>
   );

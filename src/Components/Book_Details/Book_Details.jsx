@@ -9,15 +9,16 @@ const Book_Details = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
- 
     const fetchBook = async () => {
       try {
-        const res = await fetch(`https://the-book-heaven-server-1.onrender.com/Book-data/${id}`);
+        const res = await fetch(
+          `https://the-book-heaven-server-1.onrender.com/Book-data/${id}`
+        );
         const data = await res.json();
         setBook(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching book:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -25,16 +26,24 @@ const Book_Details = () => {
     fetchBook();
   }, [id]);
 
-
+  /* ---------------- Loading State ---------------- */
   if (loading) {
-    return <div className="text-center mt-20">Loading book...</div>;
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="animate-pulse space-y-4 w-full max-w-4xl px-4">
+          <div className="h-80 bg-gray-200 rounded-2xl" />
+          <div className="h-6 bg-gray-200 rounded w-3/4" />
+          <div className="h-4 bg-gray-200 rounded w-1/2" />
+        </div>
+      </div>
+    );
   }
 
-
+  /* ---------------- Not Found ---------------- */
   if (!book || !book._id) {
     return (
-      <div className="text-center mt-20 text-red-500">
-        Book not found!
+      <div className="min-h-[60vh] flex items-center justify-center text-red-500 font-medium">
+        Book not found
       </div>
     );
   }
@@ -42,58 +51,70 @@ const Book_Details = () => {
   const { title, author, genre, rating, summary, coverImage, userEmail } = book;
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden mt-10 p-6 sm:p-10">
-      <div className="text-center">
+    <section className="py-12 px-4">
+      <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-6 md:p-10">
+          {/* ---------- Book Image ---------- */}
+          <div className="flex justify-center">
+            <img
+              src={coverImage}
+              alt={title}
+              className="w-64 h-96 object-cover rounded-2xl shadow-lg"
+            />
+          </div>
 
-        <div className=" w-full md:w-1/3 mb-6 md:mb-0 mx-auto">
-          <img
-            src={coverImage}
-            alt={title}
-            className="w-full md:w-64 h-96  rounded-2xl shadow-lg mx-auto md:mx-0 "
-          />
-        </div>
+          {/* ---------- Book Info ---------- */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <span className="inline-block mb-3 text-sm font-semibold px-4 py-1 rounded-full bg-indigo-100 text-indigo-700">
+                {genre}
+              </span>
 
-        <div className="flex-1 flex flex-col justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-3">{title}</h1>
+              <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-2">
+                {title}
+              </h1>
 
-            <p className="text-gray-600 text-lg mb-2">
-              by <span className="font-semibold text-gray-800">{author}</span>
-            </p>
+              <p className="text-gray-600 mb-4">
+                by <span className="font-medium text-gray-900">{author}</span>
+              </p>
 
-            <span className="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">
-              {genre}
-            </span>
+              {/* ---------- Rating ---------- */}
+              <div className="flex items-center gap-1 mb-6">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <FaStar
+                    key={i}
+                    className={`${
+                      i < rating ? "text-yellow-400" : "text-gray-300"
+                    }`}
+                  />
+                ))}
+                <span className="ml-2 text-sm text-gray-600">
+                  {rating} / 5
+                </span>
+              </div>
 
-            <div className="flex items-center justify-center gap-1 mb-4">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={i < rating ? "text-yellow-400" : "text-gray-300"}
-                />
-              ))}
-
-              <span className="ml-2 text-gray-600">{rating}</span>
+              {/* ---------- Summary ---------- */}
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                Overview
+              </h2>
+              <p className="text-gray-700 leading-relaxed text-justify">
+                {summary}
+              </p>
             </div>
 
-            <h2 className="text-xl font-semibold  text-gray-800 mb-2">
-              Summary
-            </h2>
-            <p className="text-gray-700 leading-relaxed text-justify">{summary}</p>
-          </div>
-
-          <div className="mt-6">
-            <p className="text-sm text-gray-500">
-              Submitted by:{" "}
-              <span className="text-gray-800 font-medium">{userEmail}</span>
-            </p>
+            {/* ---------- Footer Info ---------- */}
+            <div className="mt-8 border-t pt-4">
+              <p className="text-sm text-gray-500">
+                Submitted by{" "}
+                <span className="font-medium text-gray-800">
+                  {userEmail}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
-      <div className="mt-8 flex flex-wrap gap-4 mx-auto justify-center">
-      </div>
-    </div>
+    </section>
   );
 };
 

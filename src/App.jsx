@@ -1,11 +1,12 @@
 
 import './App.css'
+import TestTailwind from './TestTailwind'
 
 function App() {
-
-
   return (
-    <div></div>
+    <div>
+      <TestTailwind />
+    </div>
   )
 }
 

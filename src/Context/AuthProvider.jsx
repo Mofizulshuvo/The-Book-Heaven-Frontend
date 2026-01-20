@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { auth } from "../Firebase/firebase.config";
 import {
   GoogleAuthProvider,
@@ -11,14 +11,43 @@ import {
 import AuthContext from "./AuthContext";
 import { toast } from "react-toastify";
 
+// Admin email - only admin@bookheaven.com has admin access
+const ADMIN_EMAILS = ['admin@bookheaven.com'];
+
+// Helper function to normalize email for comparison
+const normalizeEmail = (email) => {
+  if (!email) return '';
+  return email.toLowerCase().trim();
+};
+
+// Helper function to check if email is admin
+const checkIsAdmin = (email) => {
+  const normalizedEmail = normalizeEmail(email);
+  const normalizedAdminEmails = ADMIN_EMAILS.map(e => normalizeEmail(e));
+  return normalizedAdminEmails.includes(normalizedEmail);
+};
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [adminStatus, setAdminStatus] = useState(false);
 
-  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      if (currentUser) {
+        // Add role to user object
+        const isAdminUser = checkIsAdmin(currentUser.email);
+        const userWithRole = {
+          ...currentUser,
+          role: isAdminUser ? 'admin' : 'user'
+        };
+        
+        setUser(userWithRole);
+        setAdminStatus(isAdminUser);
+      } else {
+        setUser(null);
+        setAdminStatus(false);
+      }
       setLoading(false);
     });
     return () => unsubscribe();
@@ -64,6 +93,10 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const isAdmin = useCallback(() => {
+    return adminStatus;
+  }, [adminStatus]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -73,6 +106,8 @@ const AuthProvider = ({ children }) => {
         signInWithEmailAndPasswordFunction,
         GoogleSignIn,
         SignOutFunction,
+        isAdmin,
+        adminStatus, // Add this for debugging
       }}
     >
       {children}
