@@ -6,7 +6,7 @@
 
 ### Global Book Sharing & Discovery Platform
 
-([Live-Link](https://splendorous-marigold-bf0e36.netlify.app/))
+[![Live Demo](https://splendorous-marigold-bf0e36.netlify.app/)
 [![Frontend](https://img.shields.io/badge/Frontend-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mofizulshuvo/The-Book-Heaven-Frontend)
 [![Backend](https://img.shields.io/badge/Backend-181717?style=for-the-badge&logo=github&logoColor=white)](YOUR_BACKEND_REPO_HERE)
 
